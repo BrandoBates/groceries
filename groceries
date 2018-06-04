@@ -1,0 +1,22 @@
+CREATE TABLE groceries (id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, aisle INTEGER); /* create a table of groceries with their quantity and aisle number */
+INSERT INTO groceries VALUES (1, "bananas", 4, 7);
+INSERT INTO groceries VALUES (2, "peanut butter", 1, 2);
+INSERT INTO groceries VALUES (3, "chocolate", 2, 2);
+INSERT INTO groceries VALUES (4, "icecream", 1, 12);
+INSERT INTO groceries VALUES (5, "cherries", 6, 2);
+INSERT INTO groceries VALUES (6, "chocolate syrup", 1, 4);
+
+SELECT aisle, sum(quantity) FROM groceries group by(aisle); /* groups by aisle and sums the number of groceries in each aisle */
+
+select * from groceries where quantity = (select max(quantity) from groceries); /* selects that grocery with the greatest quantity */
+
+select * from groceries where name not in("bananas", "icecream"); /* selects groceries that are not bananas or icecream */
+
+create table favorites (id integer primary key, name text); /* create a table of my favorite groceries */
+insert into favorites(name) values("icecream");
+
+select * from groceries where name in(select name from favorites); /* select the groceries that are in my favorites table */
+
+select quantity from groceries where quantity in(select max(quantity) from groceries); /* selects the greatest quantity */
+
+select max(quantity) from groceries where quantity not in(select max(quantity) from groceries); /* selects the second greatest quantity */
